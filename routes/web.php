@@ -10,6 +10,8 @@ Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+Route::get('/mathquestions', [MathQuestionController::class, 'getMathQuestions'])->name('mathquestions');
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/', function () {
         return view('import');
