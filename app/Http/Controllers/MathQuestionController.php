@@ -9,7 +9,7 @@ use Illuminate\Http\JsonResponse;
 
 class MathQuestionController extends Controller
 {
-    public function import(Request $request)
+    public function importMathQuestions(Request $request): JsonResponse
     {
         $request->validate([
             'file' => 'required|mimes:xlsx,xls',
@@ -46,7 +46,12 @@ class MathQuestionController extends Controller
                 $skippedCount++;
             }
         }
-        return back()->with('success', "Import completed. Inserted: $insertedCount, Skipped (duplicates): $skippedCount.");
+
+        return response()->json([
+            'message' => 'Import completed',
+            'inserted' => $insertedCount,
+            'skipped' => $skippedCount,
+        ]);
     }
 
     public function getMathQuestions(): JsonResponse
@@ -75,6 +80,7 @@ class MathQuestionController extends Controller
                 }
             }
         }
+
         return response()->json($formattedQuestions);
     }
 }
